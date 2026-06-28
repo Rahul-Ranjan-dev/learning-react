@@ -1,35 +1,33 @@
 import { useState } from "react";
 
 export default function Ludo() {
-  // const [bluecount, setBluecount] = useState(0);
-  // const [redcount, setRedcount] = useState(0);
-  // const [greencount, setGreencount] = useState(0);
-  // const [yellowcount, setYellowcount] = useState(0);
   const [count,setCount]=useState({blue:0,red:0,green:0,yellow:0});
-//   console.log(bluecount);
-//   console.log("rendered")
+
 
   function handleBlue() {
-    console.log(count.blue)
-    setCount(count.blue + 1);
+    setCount((prevCount)=>{
+      return {...prevCount, blue:prevCount.blue+1}});
    
   }
-  function handleRed() {
-    console.log(count.red)
-    setCount(count.red + 1);
+    function handleRed() {
+    setCount((prevCount)=>{
+      return {...prevCount, red:prevCount.red+1}});
+   
   }
-  function handleGreen() {
-    setCount(count.green + 1);
+    function handleGreen() {
+    setCount((prevCount)=>{
+      return {...prevCount, green:prevCount.green+1}});
+   
   }
-  function handleYellow() {
-    setCount(count.yellow + 1);
-  }
-
-  return (
+    function handleYellow() {
+    setCount((prevCount)=>{
+      return {...prevCount,yellow :prevCount.yellow+1}});
+    }
+ return (
     <>
       <div id="blue">
         <p>bluecount = {count.blue}</p>
-        <button onClick={handleBlue} style={{ backgroundColor: "blue" }}>+1</button>
+        <button  onClick={handleBlue} style={{ backgroundColor: "blue" }}>+1</button>
       </div>
 
       <div id="red">
