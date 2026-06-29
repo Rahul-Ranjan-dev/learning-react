@@ -9,11 +9,12 @@ import NavBar from './navbar.jsx'
 import Heart from './heartbutton.jsx'
 import Ludo from './ludo.jsx'
 import Todo from './todo.jsx'
+import Lottery from './lotterygame.jsx'
 function App() {
 
   return (
     <>
-   <Ludo/>
+   <Lottery/>
     </>
   )
 }
