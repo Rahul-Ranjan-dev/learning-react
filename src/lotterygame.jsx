@@ -6,6 +6,7 @@ export default function Lottery(){
     setnumber(event.target.value)
   }
   function handlesubmit(){
+
     let sum=0;
     let remainder=0;
     let tempnum=parseInt(number)
@@ -17,11 +18,15 @@ export default function Lottery(){
     }
    
     if(sum===15){
-        alert("you won the game")
+       alert("you won the game")
+     
     }
         else{
-            alert("you lost the game,better luck next time")
+          alert("try again")
+        
         }
+        setnumber("")
+        
     }
   
   return(
