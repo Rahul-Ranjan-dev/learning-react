@@ -2,6 +2,7 @@ import { useState } from "react"
 export default function Lottery(){
   const[number,setnumber]=useState("")
   const[sum,setsum]=useState(null)
+  const [message,setmessage]=useState("")
   function handleChange(event){
     setnumber(event.target.value)
   }
@@ -17,16 +18,17 @@ export default function Lottery(){
 
     }
    
-    // if(sum===15){
-    //    alert("you won the game")
+    if(total===15){
+       setmessage("you won the game")
      
-    // }
-    //     else{
-    //       alert("try again")
+    }
+        else{
+          setmessage("try again")
         
-    //     }
+        }
         setsum(total)
         setnumber("")
+
         
     }
   
@@ -35,7 +37,7 @@ export default function Lottery(){
     enter your lotterynumber:<input type="number" max="3" value={number} onChange={handleChange}/>
     <button onClick={handlesubmit}>submit</button>
    
-    { sum>=15? (<p>you won the game</p>):(<p>try again</p>)}
+    <p>{message}</p>
     </>
   )
 }
