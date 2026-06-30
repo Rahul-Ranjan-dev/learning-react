@@ -3,6 +3,7 @@ export default function Lottery(){
   const[number,setnumber]=useState("")
   const[sum,setsum]=useState(null)
   const [message,setmessage]=useState("")
+  const [arra,setarra]=useState([])
   function handleChange(event){
     setnumber(event.target.value)
   }
@@ -19,13 +20,16 @@ export default function Lottery(){
     }
    
     if(total===15){
+       setarra([])
        setmessage("you won the game")
      
     }
         else{
+          setarra([...arra,number])
           setmessage("try again")
         
         }
+        
         setsum(total)
         setnumber("")
 
@@ -36,6 +40,17 @@ export default function Lottery(){
     <>
     enter your lotterynumber:<input type="number" max="3" value={number} onChange={handleChange}/>
     <button onClick={handlesubmit}>submit</button>
+    
+    <div className="lotterybox">
+      <p>the numbers you attempted</p>
+    <ul>
+      {arra.map((array)=>{
+        return(
+      <li>
+        {array}
+      </li>)})}
+    </ul>
+    </div>
    
     <p>{message}</p>
     </>

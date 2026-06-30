@@ -132,3 +132,15 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+.lotterybox{
+  height:100px;
+  width:300px;
+  overflow:auto;
+  border:2px solid green;
+  margin:50px;
+}
+.lotterybox:hover{
+  box-shadow:2px 5px red;
+  transform:scale(1.2);
+
+}
