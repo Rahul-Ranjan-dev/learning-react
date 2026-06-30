@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 export default function Todo(){
    const [task,settask]=useState([]);
    const [newtask,setnewtask]=useState("")
+   const [toggle,settoggle]=useState(true);
    function handleChange(event){
      setnewtask(event.target.value)
    }
@@ -11,6 +12,22 @@ export default function Todo(){
         settask([...task,{taskv:newtask,taskid:uuid()}])
         setnewtask("")
 
+    }
+    function handleUpdate(){
+        if (toggle){
+       const updatedTask= task.map((array)=>{
+            return({...array,taskv:array.taskv.toUpperCase()})
+        })
+        settask(updatedTask)
+        settoggle(false)
+    }else{
+      const updatedTask= task.map((array)=>{
+            return({...array,taskv:array.taskv.toLowerCase()})
+        })
+        settask(updatedTask)
+        settoggle(true)
+    }
+        
     }
     return(
         <>
@@ -21,6 +38,7 @@ export default function Todo(){
      })}
 
      </ul>  
+     <button onClick={handleUpdate}>update all</button>
         </>
     )
 }
