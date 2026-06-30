@@ -1,44 +1,66 @@
-import { useState } from "react"
-import { v4 as uuid } from 'uuid';
-export default function Todo(){
-   const [task,settask]=useState([]);
-   const [newtask,setnewtask]=useState("")
-   const [toggle,settoggle]=useState(true);
-   function handleChange(event){
-     setnewtask(event.target.value)
-   }
+import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
-    function handleSubmit(){
-        settask([...task,{taskv:newtask,taskid:uuid()}])
-        setnewtask("")
+export default function Todo() {
+  const [task, setTask] = useState([]);
+  const [newTask, setNewTask] = useState("");
+  const [toggle, setToggle] = useState(true);
 
-    }
-    function handleUpdate(){
-        if (toggle){
-       const updatedTask= task.map((array)=>{
-            return({...array,taskv:array.taskv.toUpperCase()})
-        })
-        settask(updatedTask)
-        settoggle(false)
-    }else{
-      const updatedTask= task.map((array)=>{
-            return({...array,taskv:array.taskv.toLowerCase()})
-        })
-        settask(updatedTask)
-        settoggle(true)
-    }
-        
-    }
-    return(
-        <>
-        enter your task:<input type="text" onChange={handleChange} value={newtask}/>
-        <button onClick={handleSubmit}>add task</button>
-     <ul>{task.map((array)=>{
-        return(<li key={array.taskid}>{array.taskv}</li>)
-     })}
+  function handleChange(event) {
+    setNewTask(event.target.value);
+  }
 
-     </ul>  
-     <button onClick={handleUpdate}>update all</button>
-        </>
-    )
+  function handleSubmit() {
+    setTask([...task, { taskv: newTask, taskid: uuid(), marked: false }]);
+    setNewTask("");
+  }
+
+  function handleUpdate() {
+    if (toggle) {
+      const updatedTask = task.map((array) => ({
+        ...array,
+        taskv: array.taskv.toUpperCase(),
+      }));
+      setTask(updatedTask);
+      setToggle(false);
+    } else {
+      const updatedTask = task.map((array) => ({
+        ...array,
+        taskv: array.taskv.toLowerCase(),
+      }));
+      setTask(updatedTask);
+      setToggle(true);
+    }
+  }
+
+  function handleMark(id) {
+    const markedTask = task.map((array) =>
+      array.taskid === id ? { ...array, marked: true } : array
+    );
+    setTask(markedTask);
+  }
+
+  return (
+    <>
+      <p>Enter your task:</p>
+      <input type="text" onChange={handleChange} value={newTask} />
+      <button onClick={handleSubmit}>Add Task</button>
+
+      <ul>
+        {task.map((array) => (
+          <li
+            key={array.taskid}
+            style={{
+              textDecoration: array.marked ? "line-through" : "none",
+            }}
+          >
+            {array.taskv}
+            <button onClick={() => handleMark(array.taskid)}>Mark as done</button>
+          </li>
+        ))}
+      </ul>
+
+      <button onClick={handleUpdate}>Update All</button>
+    </>
+  );
 }
