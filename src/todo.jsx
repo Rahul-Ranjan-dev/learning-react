@@ -11,26 +11,18 @@ export default function Todo() {
   }
 
   function handleSubmit() {
+    if (newTask.trim() === "") return; // prevent empty tasks
     setTask([...task, { taskv: newTask, taskid: uuid(), marked: false }]);
     setNewTask("");
   }
 
   function handleUpdate() {
-    if (toggle) {
-      const updatedTask = task.map((array) => ({
-        ...array,
-        taskv: array.taskv.toUpperCase(),
-      }));
-      setTask(updatedTask);
-      setToggle(false);
-    } else {
-      const updatedTask = task.map((array) => ({
-        ...array,
-        taskv: array.taskv.toLowerCase(),
-      }));
-      setTask(updatedTask);
-      setToggle(true);
-    }
+    const updatedTask = task.map((array) => ({
+      ...array,
+      taskv: toggle ? array.taskv.toUpperCase() : array.taskv.toLowerCase(),
+    }));
+    setTask(updatedTask);
+    setToggle(!toggle);
   }
 
   function handleMark(id) {
@@ -38,6 +30,11 @@ export default function Todo() {
       array.taskid === id ? { ...array, marked: true } : array
     );
     setTask(markedTask);
+  }
+
+  function handleDelete(id) {
+    const updatedTasks = task.filter((t) => t.taskid !== id);
+    setTask(updatedTasks);
   }
 
   return (
@@ -54,7 +51,8 @@ export default function Todo() {
               textDecoration: array.marked ? "line-through" : "none",
             }}
           >
-            {array.taskv}
+            <span>{array.taskv}</span>
+            <button onClick={() => handleDelete(array.taskid)}>Delete</button>
             <button onClick={() => handleMark(array.taskid)}>Mark as done</button>
           </li>
         ))}
