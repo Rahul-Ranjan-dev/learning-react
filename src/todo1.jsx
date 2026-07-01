@@ -39,6 +39,23 @@ export default function Todo1(){
           })
           settasks(MarkTask)
     }
+    function handleMarkAll(){
+      const MarkTasks=tasks.map((task)=>{
+        return {...task,isMarked:!task.isMarked}
+      })
+      settasks(MarkTasks)
+    }
+    function handleDeleteAll(){
+     settasks([])
+     }
+    
+      function handleUpdateAll(){
+        const UpdateAll=tasks.map((task)=>{
+          return{...task,v:task.v.toUpperCase()}
+        })
+        settasks(UpdateAll)
+      }
+    
     return(
         <>
         
@@ -50,6 +67,9 @@ export default function Todo1(){
             <button onClick={()=>handleDelete(task.id)}>delete</button>
             <button onClick={()=>handleMark(task.id)}>markasdone</button>
         </li>)}</ul>
+        <button onClick={handleMarkAll}>markall</button>
+        <button onClick={handleDeleteAll}>Deleteall</button>
+        <button onClick={handleUpdateAll}>Updateall</button>
         </>
     )
 }
